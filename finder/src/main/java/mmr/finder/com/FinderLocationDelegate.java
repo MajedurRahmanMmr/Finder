@@ -17,7 +17,6 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 
-import mmr.finder.com.EasyLocationRequest;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.location.LocationRequest;
@@ -25,25 +24,25 @@ import com.google.android.gms.location.LocationRequest;
 import static mmr.finder.com.AppConstants.CONTINUOUS_LOCATION_UPDATES;
 import static mmr.finder.com.AppConstants.SINGLE_FIX;
 
-class EasyLocationDelegate {
+class FinderLocationDelegate {
     private static final int PERMISSIONS_REQUEST = 100;
     private static final int ENABLE_LOCATION_SERVICES_REQUEST = 101;
     private static final int GOOGLE_PLAY_SERVICES_ERROR_DIALOG = 102;
 
 
     private final Activity activity;
-    private final EasyLocationListener easyLocationListener;
+    private final FinderLocationListener finderLocationListener;
     private final LocationBroadcastReceiver locationReceiver;
     private LocationManager mLocationManager;
     private int mLocationFetchMode;
     private LocationRequest mLocationRequest;
     private GoogleApiAvailability googleApiAvailability;
-    private EasyLocationRequest easyLocationRequest;
+    private FinderLocationRequest finderLocationRequest;
 
-    EasyLocationDelegate(Activity activity, EasyLocationListener easyLocationListener) {
+    FinderLocationDelegate(Activity activity, FinderLocationListener finderLocationListener) {
         this.activity = activity;
-        this.easyLocationListener = easyLocationListener;
-        locationReceiver = new LocationBroadcastReceiver(easyLocationListener);
+        this.finderLocationListener = finderLocationListener;
+        locationReceiver = new LocationBroadcastReceiver(finderLocationListener);
     }
 
 
@@ -71,13 +70,13 @@ class EasyLocationDelegate {
         activity.startService(intent);
     }
 
-    private void isProperRequest(EasyLocationRequest easyLocationRequest) {
-        if (easyLocationRequest == null)
-            throw new IllegalStateException("easyLocationRequest can't be null");
+    private void isProperRequest(FinderLocationRequest finderLocationRequest) {
+        if (finderLocationRequest == null)
+            throw new IllegalStateException("finderLocationRequest can't be null");
 
-        if (easyLocationRequest.locationRequest == null)
+        if (finderLocationRequest.locationRequest == null)
             throw new IllegalStateException("locationRequest can't be null");
-        this.easyLocationRequest = easyLocationRequest;
+        this.finderLocationRequest = finderLocationRequest;
     }
 
     private void startLocationBGService(LocationRequest locationRequest, long fallBackToLastLocationTime) {
@@ -98,10 +97,10 @@ class EasyLocationDelegate {
     }
 
     private void showPermissionRequireDialog() {
-        String title = TextUtils.isEmpty(easyLocationRequest.locationPermissionDialogTitle) ? activity.getString(mmr.finder.com.R.string.location_permission_dialog_title) : easyLocationRequest.locationPermissionDialogTitle;
-        String message = TextUtils.isEmpty(easyLocationRequest.locationPermissionDialogMessage) ? activity.getString(mmr.finder.com.R.string.location_permission_dialog_message) : easyLocationRequest.locationPermissionDialogMessage;
-        String negativeButtonTitle = TextUtils.isEmpty(easyLocationRequest.locationPermissionDialogNegativeButtonText) ? activity.getString(android.R.string.cancel) : easyLocationRequest.locationPermissionDialogNegativeButtonText;
-        String positiveButtonTitle = TextUtils.isEmpty(easyLocationRequest.locationPermissionDialogPositiveButtonText) ? activity.getString(android.R.string.ok) : easyLocationRequest.locationPermissionDialogPositiveButtonText;
+        String title = TextUtils.isEmpty(finderLocationRequest.locationPermissionDialogTitle) ? activity.getString(mmr.finder.com.R.string.location_permission_dialog_title) : finderLocationRequest.locationPermissionDialogTitle;
+        String message = TextUtils.isEmpty(finderLocationRequest.locationPermissionDialogMessage) ? activity.getString(mmr.finder.com.R.string.location_permission_dialog_message) : finderLocationRequest.locationPermissionDialogMessage;
+        String negativeButtonTitle = TextUtils.isEmpty(finderLocationRequest.locationPermissionDialogNegativeButtonText) ? activity.getString(android.R.string.cancel) : finderLocationRequest.locationPermissionDialogNegativeButtonText;
+        String positiveButtonTitle = TextUtils.isEmpty(finderLocationRequest.locationPermissionDialogPositiveButtonText) ? activity.getString(android.R.string.ok) : finderLocationRequest.locationPermissionDialogPositiveButtonText;
         new AlertDialog.Builder(activity)
                 .setCancelable(true)
                 .setTitle(title)
@@ -109,7 +108,7 @@ class EasyLocationDelegate {
                 .setNegativeButton(negativeButtonTitle, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        easyLocationListener.onLocationPermissionDenied();
+                        finderLocationListener.onLocationPermissionDenied();
                     }
                 })
                 .setPositiveButton(positiveButtonTitle, new DialogInterface.OnClickListener() {
@@ -121,10 +120,10 @@ class EasyLocationDelegate {
     }
 
     private void showLocationServicesRequireDialog() {
-        String title = TextUtils.isEmpty(easyLocationRequest.locationSettingsDialogTitle) ? activity.getString(mmr.finder.com.R.string.location_services_off) : easyLocationRequest.locationSettingsDialogTitle;
-        String message = TextUtils.isEmpty(easyLocationRequest.locationSettingsDialogMessage) ? activity.getString(mmr.finder.com.R.string.open_location_settings) : easyLocationRequest.locationSettingsDialogMessage;
-        String negativeButtonText = TextUtils.isEmpty(easyLocationRequest.locationSettingsDialogNegativeButtonText) ? activity.getString(android.R.string.cancel) : easyLocationRequest.locationSettingsDialogNegativeButtonText;
-        String positiveButtonText = TextUtils.isEmpty(easyLocationRequest.locationSettingsDialogPositiveButtonText) ? activity.getString(android.R.string.ok) : easyLocationRequest.locationSettingsDialogPositiveButtonText;
+        String title = TextUtils.isEmpty(finderLocationRequest.locationSettingsDialogTitle) ? activity.getString(mmr.finder.com.R.string.location_services_off) : finderLocationRequest.locationSettingsDialogTitle;
+        String message = TextUtils.isEmpty(finderLocationRequest.locationSettingsDialogMessage) ? activity.getString(mmr.finder.com.R.string.open_location_settings) : finderLocationRequest.locationSettingsDialogMessage;
+        String negativeButtonText = TextUtils.isEmpty(finderLocationRequest.locationSettingsDialogNegativeButtonText) ? activity.getString(android.R.string.cancel) : finderLocationRequest.locationSettingsDialogNegativeButtonText;
+        String positiveButtonText = TextUtils.isEmpty(finderLocationRequest.locationSettingsDialogPositiveButtonText) ? activity.getString(android.R.string.ok) : finderLocationRequest.locationSettingsDialogPositiveButtonText;
         new AlertDialog.Builder(activity)
                 .setCancelable(true)
                 .setTitle(title)
@@ -132,7 +131,7 @@ class EasyLocationDelegate {
                 .setNegativeButton(negativeButtonText, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        easyLocationListener.onLocationProviderDisabled();
+                        finderLocationListener.onLocationProviderDisabled();
                     }
                 })
                 .setPositiveButton(positiveButtonText, new DialogInterface.OnClickListener() {
@@ -165,7 +164,7 @@ class EasyLocationDelegate {
             else
                 requestPermission();
         } else
-            startLocationBGService(locationRequest,easyLocationRequest.fallBackToLastLocationTime);
+            startLocationBGService(locationRequest, finderLocationRequest.fallBackToLastLocationTime);
     }
 
     private void unregisterLocationBroadcastReceiver() {
@@ -202,9 +201,9 @@ class EasyLocationDelegate {
             case ENABLE_LOCATION_SERVICES_REQUEST:
                 if (isLocationEnabled()) {
                     requestLocation(mLocationRequest, mLocationFetchMode);
-                    easyLocationListener.onLocationProviderEnabled();
+                    finderLocationListener.onLocationProviderEnabled();
                 } else
-                    easyLocationListener.onLocationProviderDisabled();
+                    finderLocationListener.onLocationProviderDisabled();
                 break;
         }
     }
@@ -214,9 +213,9 @@ class EasyLocationDelegate {
             case PERMISSIONS_REQUEST:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     requestLocation(mLocationRequest, mLocationFetchMode);
-                    easyLocationListener.onLocationPermissionGranted();
+                    finderLocationListener.onLocationPermissionGranted();
                 } else
-                    easyLocationListener.onLocationPermissionDenied();
+                    finderLocationListener.onLocationPermissionDenied();
                 break;
         }
     }
@@ -230,13 +229,13 @@ class EasyLocationDelegate {
         return mmr.finder.com.PreferenceUtil.getInstance(activity).getLastKnownLocation();
     }
 
-    void requestLocationUpdates(EasyLocationRequest easyLocationRequest) {
-        isProperRequest(easyLocationRequest);
-        requestLocation(easyLocationRequest.locationRequest, CONTINUOUS_LOCATION_UPDATES);
+    void requestLocationUpdates(FinderLocationRequest finderLocationRequest) {
+        isProperRequest(finderLocationRequest);
+        requestLocation(finderLocationRequest.locationRequest, CONTINUOUS_LOCATION_UPDATES);
     }
 
-    void requestSingleLocationFix(EasyLocationRequest easyLocationRequest) {
-        isProperRequest(easyLocationRequest);
-        requestLocation(easyLocationRequest.locationRequest, SINGLE_FIX);
+    void requestSingleLocationFix(FinderLocationRequest finderLocationRequest) {
+        isProperRequest(finderLocationRequest);
+        requestLocation(finderLocationRequest.locationRequest, SINGLE_FIX);
     }
 }

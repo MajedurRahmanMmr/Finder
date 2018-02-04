@@ -36,7 +36,7 @@ class PreferenceUtil {
         }
     }
     public void saveLastKnownLocation(Location location) {
-        EasyLocation easyLocation= new EasyLocation(location);
-        mPreferences.edit().putString(LAST_KNOWN_LOCATION,easyLocation.toString()).apply();
+        FinderLocation finderLocation = new FinderLocation(location);
+        mPreferences.edit().putString(LAST_KNOWN_LOCATION, finderLocation.toString()).apply();
     }
 }

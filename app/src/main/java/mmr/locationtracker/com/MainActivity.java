@@ -3,8 +3,10 @@ package mmr.locationtracker.com;
 import android.location.Location;
 
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.LocationRequest;
@@ -13,17 +15,24 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import mmr.finder.com.EasyLocationAppCompatActivity;
-import mmr.finder.com.EasyLocationRequest;
-import mmr.finder.com.EasyLocationRequestBuilder;
+import mmr.finder.com.FinderLocationAppCompatActivity;
+import mmr.finder.com.FinderLocationRequest;
+import mmr.finder.com.FinderRequestBuilder;
 
-public class MainActivity extends EasyLocationAppCompatActivity {
+public class MainActivity extends FinderLocationAppCompatActivity {
     @BindView(R.id.requestSingleLocationButton)
-    Button requestSingleLocationButton;
+    CardView requestSingleLocationButton;
     @BindView(R.id.requestLocationUpdatesButton)
-    Button requestLocationUpdatesButton;
+    CardView requestLocationUpdatesButton;
     @BindView(R.id.stopLocationUpdatesButton)
-    Button stopLocationUpdatesButton;
+    CardView stopLocationUpdatesButton;
+
+    @BindView(R.id.latitudeTV)
+    TextView latitudeTextview;
+
+    @BindView(R.id.longitudeTV)
+    TextView longitudeTv;
+
     private Unbinder unbinder;
 
     @Override
@@ -40,6 +49,9 @@ public class MainActivity extends EasyLocationAppCompatActivity {
 
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+
+
+
     }
 
     @Override
@@ -50,6 +62,9 @@ public class MainActivity extends EasyLocationAppCompatActivity {
     @Override
     public void onLocationReceived(Location location) {
         showToast(" Your Location is : "+ location.getLatitude() + " , " + location.getLongitude());
+
+        longitudeTv.setText("Longitude : "+location.getLongitude() +"  \n Speed : "+ location.getSpeed() +" km/h");
+        latitudeTextview.setText("Latitude : " + location.getLatitude());
     }
 
     @Override
@@ -75,11 +90,11 @@ public class MainActivity extends EasyLocationAppCompatActivity {
                         .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)
                         .setInterval(5000)
                         .setFastestInterval(5000);
-                EasyLocationRequest easyLocationRequest = new EasyLocationRequestBuilder()
+                FinderLocationRequest finderLocationRequest = new FinderRequestBuilder()
                         .setLocationRequest(locationRequest)
                         .setFallBackToLastLocationTime(3000)
                         .build();
-                requestSingleLocationFix(easyLocationRequest);
+                requestSingleLocationFix(finderLocationRequest);
             }
             break;
             case R.id.requestLocationUpdatesButton: {
@@ -87,11 +102,11 @@ public class MainActivity extends EasyLocationAppCompatActivity {
                         .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)
                         .setInterval(5000)
                         .setFastestInterval(5000);
-                EasyLocationRequest easyLocationRequest = new EasyLocationRequestBuilder()
+                FinderLocationRequest finderLocationRequest = new FinderRequestBuilder()
                         .setLocationRequest(locationRequest)
                         .setFallBackToLastLocationTime(3000)
                         .build();
-                requestLocationUpdates(easyLocationRequest);
+                requestLocationUpdates(finderLocationRequest);
             }
             break;
             case R.id.stopLocationUpdatesButton:

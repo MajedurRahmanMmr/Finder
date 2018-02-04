@@ -2,10 +2,10 @@ package mmr.finder.com;
 
 import android.location.Location;
 
-class EasyLocation {
+class FinderLocation {
     private final Location location;
 
-    public EasyLocation(Location location) {
+    public FinderLocation(Location location) {
         this.location = location;
     }
 
@@ -13,7 +13,7 @@ class EasyLocation {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        mmr.finder.com.EasyLocation that = (mmr.finder.com.EasyLocation) o;
+        FinderLocation that = (FinderLocation) o;
         return location != null ? location.equals(that.location) : that.location == null;
 
     }

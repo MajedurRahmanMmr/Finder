@@ -1,9 +1,8 @@
 package mmr.finder.com;
 
-import mmr.finder.com.EasyLocationRequest;
 import com.google.android.gms.location.LocationRequest;
 
-public class EasyLocationRequestBuilder {
+public class FinderRequestBuilder {
     private LocationRequest locationRequest;
     private String locationSettingsDialogTitle;
     private String locationSettingsDialogMessage;
@@ -15,58 +14,58 @@ public class EasyLocationRequestBuilder {
     private String locationPermissionDialogNegativeButtonText;
     private long fallBackToLastLocationTime;
 
-    public mmr.finder.com.EasyLocationRequestBuilder setLocationRequest(LocationRequest locationRequest) {
+    public FinderRequestBuilder setLocationRequest(LocationRequest locationRequest) {
         this.locationRequest = locationRequest;
         return this;
     }
 
-    public mmr.finder.com.EasyLocationRequestBuilder setLocationSettingsDialogTitle(String locationSettingsDialogTitle) {
+    public FinderRequestBuilder setLocationSettingsDialogTitle(String locationSettingsDialogTitle) {
         this.locationSettingsDialogTitle = locationSettingsDialogTitle;
         return this;
     }
 
-    public mmr.finder.com.EasyLocationRequestBuilder setLocationSettingsDialogMessage(String locationSettingsDialogMessage) {
+    public FinderRequestBuilder setLocationSettingsDialogMessage(String locationSettingsDialogMessage) {
         this.locationSettingsDialogMessage = locationSettingsDialogMessage;
         return this;
     }
 
-    public mmr.finder.com.EasyLocationRequestBuilder setLocationSettingsDialogPositiveButtonText(String locationSettingsDialogPositiveButtonText) {
+    public FinderRequestBuilder setLocationSettingsDialogPositiveButtonText(String locationSettingsDialogPositiveButtonText) {
         this.locationSettingsDialogPositiveButtonText = locationSettingsDialogPositiveButtonText;
         return this;
     }
 
-    public mmr.finder.com.EasyLocationRequestBuilder setLocationSettingsDialogNegativeButtonText(String locationSettingsDialogNegativeButtonText) {
+    public FinderRequestBuilder setLocationSettingsDialogNegativeButtonText(String locationSettingsDialogNegativeButtonText) {
         this.locationSettingsDialogNegativeButtonText = locationSettingsDialogNegativeButtonText;
         return this;
     }
 
-    public mmr.finder.com.EasyLocationRequestBuilder setLocationPermissionDialogTitle(String locationPermissionDialogTitle) {
+    public FinderRequestBuilder setLocationPermissionDialogTitle(String locationPermissionDialogTitle) {
         this.locationPermissionDialogTitle = locationPermissionDialogTitle;
         return this;
     }
 
-    public mmr.finder.com.EasyLocationRequestBuilder setLocationPermissionDialogMessage(String locationPermissionDialogMessage) {
+    public FinderRequestBuilder setLocationPermissionDialogMessage(String locationPermissionDialogMessage) {
         this.locationPermissionDialogMessage = locationPermissionDialogMessage;
         return this;
     }
 
-    public mmr.finder.com.EasyLocationRequestBuilder setLocationPermissionDialogPositiveButtonText(String locationPermissionDialogPositiveButtonText) {
+    public FinderRequestBuilder setLocationPermissionDialogPositiveButtonText(String locationPermissionDialogPositiveButtonText) {
         this.locationPermissionDialogPositiveButtonText = locationPermissionDialogPositiveButtonText;
         return this;
     }
 
-    public mmr.finder.com.EasyLocationRequestBuilder setLocationPermissionDialogNegativeButtonText(String locationPermissionDialogNegativeButtonText) {
+    public FinderRequestBuilder setLocationPermissionDialogNegativeButtonText(String locationPermissionDialogNegativeButtonText) {
         this.locationPermissionDialogNegativeButtonText = locationPermissionDialogNegativeButtonText;
         return this;
     }
 
-    public mmr.finder.com.EasyLocationRequestBuilder setFallBackToLastLocationTime(long fallBackToLastLocationTime) {
+    public FinderRequestBuilder setFallBackToLastLocationTime(long fallBackToLastLocationTime) {
         this.fallBackToLastLocationTime = fallBackToLastLocationTime;
         return this;
     }
 
 
-    public mmr.finder.com.EasyLocationRequest build() {
-        return new EasyLocationRequest(locationRequest, locationSettingsDialogTitle, locationSettingsDialogMessage, locationSettingsDialogPositiveButtonText, locationSettingsDialogNegativeButtonText, locationPermissionDialogTitle, locationPermissionDialogMessage, locationPermissionDialogPositiveButtonText, locationPermissionDialogNegativeButtonText, fallBackToLastLocationTime);
+    public FinderLocationRequest build() {
+        return new FinderLocationRequest(locationRequest, locationSettingsDialogTitle, locationSettingsDialogMessage, locationSettingsDialogPositiveButtonText, locationSettingsDialogNegativeButtonText, locationPermissionDialogTitle, locationPermissionDialogMessage, locationPermissionDialogPositiveButtonText, locationPermissionDialogNegativeButtonText, fallBackToLastLocationTime);
     }
 }

@@ -2,7 +2,7 @@ package mmr.finder.com;
 
 import android.location.Location;
 
-interface EasyLocationListener {
+interface FinderLocationListener {
     void onLocationPermissionGranted();
     void onLocationPermissionDenied();
     void onLocationReceived(Location location);

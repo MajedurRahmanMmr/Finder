@@ -6,51 +6,49 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
-import mmr.finder.com.EasyLocationRequest;
 
-
-public abstract class EasyLocationAppCompatActivity extends AppCompatActivity implements EasyLocationListener {
-    private EasyLocationDelegate easyLocationDelegate;
+public abstract class FinderLocationAppCompatActivity extends AppCompatActivity implements FinderLocationListener {
+    private FinderLocationDelegate finderLocationDelegate;
 
     protected Location getLastKnownLocation() {
-        return easyLocationDelegate.getLastKnownLocation();
+        return finderLocationDelegate.getLastKnownLocation();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        easyLocationDelegate = new EasyLocationDelegate(this,this);
-        easyLocationDelegate.onCreate();
+        finderLocationDelegate = new FinderLocationDelegate(this,this);
+        finderLocationDelegate.onCreate();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        easyLocationDelegate.onActivityResult(requestCode);
+        finderLocationDelegate.onActivityResult(requestCode);
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        easyLocationDelegate.onRequestPermissionsResult(requestCode, grantResults);
+        finderLocationDelegate.onRequestPermissionsResult(requestCode, grantResults);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        easyLocationDelegate.onDestroy();
+        finderLocationDelegate.onDestroy();
     }
 
-    protected void requestLocationUpdates(EasyLocationRequest easyLocationRequest) {
-        easyLocationDelegate.requestLocationUpdates(easyLocationRequest);
+    protected void requestLocationUpdates(FinderLocationRequest finderLocationRequest) {
+        finderLocationDelegate.requestLocationUpdates(finderLocationRequest);
     }
 
 
-    protected void requestSingleLocationFix(EasyLocationRequest easyLocationRequest) {
-        easyLocationDelegate.requestSingleLocationFix(easyLocationRequest);
+    protected void requestSingleLocationFix(FinderLocationRequest finderLocationRequest) {
+        finderLocationDelegate.requestSingleLocationFix(finderLocationRequest);
     }
 
     protected void stopLocationUpdates() {
-        easyLocationDelegate.stopLocationUpdates();
+        finderLocationDelegate.stopLocationUpdates();
     }
 }
